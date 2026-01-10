@@ -1,5 +1,22 @@
 def pair_sum_sorted(nums, target):
-    # What happens when nums is an empty array
+    """
+    Find a pair of indices in a sorted array that sum to the target.
+
+    Where n = len(nums)
+
+    Time Complexity: O(n)
+      - Edge case check: O(1)
+      - Two-pointer traversal: O(n) - left pointer moves right, right pointer moves left
+      - Each comparison and pointer movement: O(1)
+      - Worst case: pointers traverse entire array without finding pair
+      - Total: O(n)
+
+    Space Complexity: O(1)
+      - Only uses two pointer variables (left_pointer_index, right_pointer_index)
+      - No additional data structures
+      - Return array is constant size [index1, index2]
+      - Total: O(1) - constant auxiliary space
+    """
     if (len(nums) <= 1):
         return ([])
 
@@ -22,6 +39,3 @@ def pair_sum_sorted(nums, target):
             return ([left_pointer_index, right_pointer_index])
 
     return ([])
-
-# time complexity O(len(nums))
-# space complexity O(1)

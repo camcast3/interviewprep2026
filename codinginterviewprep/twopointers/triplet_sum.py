@@ -1,36 +1,76 @@
 def triplet_sum(nums):
-    tempArrayList = nums.sort()  # O(len(num) * log len(num))?
-    tuple = set()
+    """
+    Find all unique triplets in the array that sum to zero.
 
-    a = 0
-    b = a + 1
-    c = len(nums) - 1
+    Where n = len(nums)
 
-    while True:
-        break
-    return ([])
+    Time Complexity: O(n²)
+      - Sorting: O(n log n)
+      - Outer loop: O(n) iterations
+      - Inner pair_sum_all_elements: O(n) per call (on slice of size ~n)
+      - Total: O(n log n) + O(n) * O(n) = O(n²)
+
+    Space Complexity: O(n)
+      - Sorting: O(log n) recursive stack space (in-place quicksort)
+      - Results set: O(n) in worst case (all unique triplets)
+      - Slicing nums[a+1:]: O(n) per iteration (creates new list)
+      - Pairs set in pair_sum_all_elements: O(n) worst case
+      - Total auxiliary: O(n) excluding output
+    """
+    nums.sort()
+    results = set()
+
+    for a in range(len(nums) - 2):
+        if nums[a] > 0:
+            break
+
+        if a > 0 and nums[a] == nums[a - 1]:
+            continue
+
+        target = -nums[a]
+        pairs = pair_sum_all_elements(nums[a+1:], target)
+
+        for pair in pairs:
+            results.add(tuple(sorted([nums[a]] + list(pair))))
+
+    return results
 
 
 def pair_sum_all_elements(nums, target):
-    if (len(nums) <= 1):
-        return ([])
+    """
+    Find all unique pairs in the array that sum to the target.
 
-    left_pointer_index = 0
-    right_pointer_index = len(nums) - 1
+    Where n = len(nums) (the slice passed in)
 
-    while True:
-        if (left_pointer_index == right_pointer_index):
-            break
+    Time Complexity: O(n)
+      - Two-pointer traversal: O(n) total (left pointer moves right, right moves left)
+      - Each set operation: O(1) amortized
+      - Total: O(n)
 
-        sum = nums[left_pointer_index] + nums[right_pointer_index]
+    Space Complexity: O(n)
+      - Pairs set: O(n) worst case (stores all valid pairs)
+      - No other auxiliary structures
+      - Total: O(n) for output only
+    """
+    if len(nums) <= 1:
+        return set()
 
-        if (sum > target):
-            right_pointer_index -= 1
+    pairs = set()
+    left = 0
+    right = len(nums) - 1
 
-        elif (sum < target):
-            left_pointer_index += 1
+    while left < right:
+        current_sum = nums[left] + nums[right]
 
-        elif (sum == target):
-            return ([nums[left_pointer_index], nums[right_pointer_index]])
+        if current_sum == target:
+            pair = tuple(sorted([nums[left], nums[right]]))
+            pairs.add(pair)
+            left += 1
+            right -= 1
 
-    return ([])
+        elif current_sum < target:
+            left += 1
+        else:
+            right -= 1
+
+    return pairs
