@@ -60,15 +60,15 @@ def pair_sum_all_elements(nums, target):
     right = len(nums) - 1
 
     while left < right:
-        current_sum = nums[left] + nums[right]
+        sum = nums[left] + nums[right]
 
-        if current_sum == target:
+        if sum == target:
             pair = tuple(sorted([nums[left], nums[right]]))
             pairs.add(pair)
             left += 1
             right -= 1
 
-        elif current_sum < target:
+        elif sum < target:
             left += 1
         else:
             right -= 1
