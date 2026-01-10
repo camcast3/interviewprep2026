@@ -1,0 +1,5 @@
+# Python dependencies for interview preparation
+# Add packages as needed, for example:
+# numpy
+# pandas
+pytest
