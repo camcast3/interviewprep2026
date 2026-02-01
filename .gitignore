@@ -1,2 +1,6 @@
-codinginterviewprep/twopointers/__pycache__/*
-codinginterviewprep/__pycache__/*
+# Python pycache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
