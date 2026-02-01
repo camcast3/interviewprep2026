@@ -13,5 +13,4 @@ def repeat_char_jump(inputString, k):
         i = (i + k) % length
     
     return result
-    pass
     
